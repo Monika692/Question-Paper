@@ -1,98 +1,88 @@
-#include <iostream>
+/*Assume that we have a singly linked list ,first node of the linked list is poined by a pointer PTR. Write a C function to split that linked list
+in two linked lists as per the choice given by the user (Nodes' information)*/
+#include<iostream>
 using namespace std;
-struct queue
-{
-  int val;
-  struct queue *next;
-};
+typedef struct linkedlist{
+    int val;
+    struct linkedlist *next;
+}node;
 
-struct queue *temp=NULL;
-struct queue *f=NULL;
-struct queue *r=NULL;
+node *s1=NULL;
+node *s2=NULL;
+node *e=NULL;
+node *temp=NULL;
 
-void insert()
+void insert(int x)
 {
-    int x;
-    temp=new queue;
-    if(temp==NULL)
-    cout<<"overflow";
+    temp=new linkedlist;
+    if(temp==nullptr)
+        cout<<"linked list is empty"<<endl;
     else
     {
-        cout<<"enter value ";
-        cin>>x;
         temp->val=x;
-        temp->next=nullptr;
-
-        if(f==NULL)
-            f=r=temp;
+        temp->next=NULL;
+        if(s1==NULL)
+            s1=e=temp;
         else
         {
-            r->next=temp;
-            r=temp;
+            temp->next=s1;
+            s1=temp;
         }
     }
 }
 
-void dequeue()
+void splitn(int pos)
 {
-    struct queue *t1=f;
-    struct queue *t2=r;
-    struct queue *t3=t1;
-
-    /* while(t1!=t2)
+    int i=1;
+    node *t1=nullptr;
+    node *t2=s1;
+    while(i!=pos+1)
     {
-        t3=t1;
-        while(t3->next!=t2)
-            t3=t3->next;
-
-        cout<<t2->val<<"\t";
-        t2=t3;
+        t1=t2;
+        t2=t2->next;
+        i++;
     }
-    cout<<t2->val<<"\t";
+    t1->next=NULL;
+    s2=t2;
+}
 
-
-    */
-    while(true)
+void display(node *tmp)
+{
+    while(tmp!=nullptr)
     {
-        t3=t1;
-        while(t3->next!=t2)
-            t3=t3->next;
-
-        if(t2==t1 && t1!=NULL && t2!=NULL)
-        {
-            cout<<t2->val<<"\t";
-            break;
-        }
-        else
-            cout<<t2->val<<"\t";
-
-        t2=t3;
+        cout<<tmp->val<<" ";
+        tmp=tmp->next;
     }
 }
-void display()
-{
-    for(temp=f;temp!=NULL;temp=temp->next)
-        cout<<" "<<temp->val<<endl;
 
-}
-int main() {
-    int ch,ele;
-    do{
-    cout<<"enter 1 for insert"<<endl;
-    cout<<"enter 2 for dequeue"<<endl;
-    cout<<"enter 3 for display"<<endl;
+
+int main()
+{
+   int ch,ele,pos;
+   do{
+    cout<<"enter 1 for to insert element "<<endl;
+    cout<<"enter 2 for splitting "<<endl;
+    cout<<"enter 3 for display "<<endl;
     cin>>ch;
     switch(ch)
     {
     case 1:
-        insert();
+        cout<<"enter elements in linked list"<<endl;
+        cin>>ele;
+        insert(ele);
         break;
     case 2:
-       dequeue();
+        cout<<"enter position from where it will be splitted "<<endl;
+        cin>>pos;
+        splitn(pos);
         break;
-     case 3:
-        display();
+    case 3:
+        cout<<endl;
+        display(s1);
+        cout<<endl;
+        display(s2);
+        cout<<endl;
         break;
     }
-    }while(ch<=3);
+   }while(ch<=3);
 }

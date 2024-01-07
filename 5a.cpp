@@ -1,6 +1,6 @@
-/*Assume that we have a single linked list and a key.First of the first linked list is pointed
-by a pointer P. Write a C function to print the node having information
-greater than key value in the linked list.*/
+/*Assume that we have a single linked list .First node is pointed by pointer F .Write a C of the linked list respectively.
+Write a C function to find and print the middle node int the linked list*/
+
 #include<iostream>
 using namespace std;
 typedef struct linkedlist
@@ -17,12 +17,11 @@ void insert(int x)
 {
     temp=new linkedlist;
     if(temp==NULL)
-        cout<<"the linkedlist is empty"<<endl;
+    cout<<"linked list is empty"<<endl;
     else
     {
         temp->val=x;
-        temp->next=nullptr;
-
+        temp->next=NULL;
         if(s==NULL)
             s=e=temp;
         else
@@ -33,52 +32,52 @@ void insert(int x)
     }
 }
 
-void display_key(int key)
+void midnode(node *s)
 {
-    temp=s;
-    do
-    {
-        if(temp->val>key)
-            cout<<" "<<temp->val<<endl;
-
-        temp=temp->next;
-    }while(temp!=NULL);
-
+   node *temp=s;
+   node *temp1=s;
+   for(temp=s;temp1!=NULL;temp=temp->next)
+   {
+       if(temp1->next!=nullptr && temp1->next->next!=nullptr)
+            temp1=temp1->next->next;
+        else
+            break;
+   }
+   cout<<"Middle Node is : "<<temp->val<<endl;
 }
 
 void display()
 {
     temp=s;
-    do{
-    cout<<" "<<temp->val<<endl;
-    temp=temp->next;
+    do
+    {
+        cout<<" "<<temp->val<<endl;
+        temp=temp->next;
     }while(temp!=NULL);
-
 }
+
 int main()
 {
-    int ele,ch,k;
-    do{
-        cout<<"enter 1 for insert"<<endl;
-        cout<<"enter 2 for display key"<<endl;
-        cout<<"enter 3 for display"<<endl;
-        cin>>ch;
-
-    switch(ch)
-        {
-    case 1:
-        cout<<"enter element in the linkedlist :"<<endl;
+ int ch,ele;
+ do
+ {
+     cout<<"enter 1 for entering elements in linked list"<<endl;
+     cout<<"enter 2 for shoeing middle node"<<endl;
+     cout<<"enter 3 for display"<<endl;
+     cin>>ch;
+     switch(ch)
+     {
+     case 1:
+        cout<<"enter elements in linkedlist "<<endl;
         cin>>ele;
         insert(ele);
         break;
-    case 2:
-        cout<<"enter key :"<<endl;
-        cin>>k;
-        display_key(k);
+     case 2:
+        midnode(s);
         break;
-       case 3:
+     case 3:
         display();
         break;
-        }
-    }while(ch<=3);
+     }
+ }while(ch<=3);
 }

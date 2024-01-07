@@ -1,8 +1,9 @@
-/*Assume we have a single linkedlist.first node is pointed by pointer P.
-Write a C function to delete last node of the linked list */
+/*Assume that we have a single linked list with a pointer P at first node .Write a C function to input a number and search it in the linked list if number if found update
+the linked list by deleting that node otherwise print number not found*/
 #include<iostream>
 using namespace std;
-typedef struct linkedlist{
+typedef struct linkedlist
+{
     int val;
     struct linkedlist *next;
 }node;
@@ -10,19 +11,17 @@ typedef struct linkedlist{
 node *s=NULL;
 node *e=NULL;
 node *temp=NULL;
-
 void insert(int x)
 {
     temp=new linkedlist;
     if(temp==NULL)
-       cout<<"linked list is empty"<<endl;
+        cout<<"the linked list is empty"<<endl;
     else
     {
         temp->val=x;
         temp->next=NULL;
-
         if(s==NULL)
-            s=e=temp;
+        s=e=temp;
         else
         {
             temp->next=s;
@@ -30,54 +29,66 @@ void insert(int x)
         }
     }
 }
-void dele()
-{
-   if(e==NULL)
-        cout<<"there is no element in linked list"<<endl;
-   else
-   {
-    temp=s;
-    cout<<"deleted value at end is :"<<e->val<<endl;
-    while(temp->next!=e)
-        temp=temp->next;
 
-    delete(e);
-    e=temp;
-    e->next=NULL;
-   }
+void del()
+{
+    node *temp1=NULL;
+    temp=s;
+    int x,flag=0;
+    cout<<"enter element to be deleted"<<endl;
+    cin>>x;
+    while(temp!=NULL)
+    {
+        if(temp->val==x)
+        {
+            flag=1;
+            break;
+        }
+        temp1=temp;
+        temp=temp->next;
+    }
+    if(flag==0)
+    {
+        cout<<"no element found"<<endl;
+    }
+    else
+    {
+     cout<<"the deleted node is: "<<temp->val<<endl;
+     temp1->next=temp->next;
+     delete(temp);
+    }
 }
 
 void display()
 {
     temp=s;
-    do
-    {
-        cout<<" "<<temp->val<<endl;
-        temp=temp->next;
+    do{
+       cout<<" "<<temp->val<<endl;
+       temp=temp->next;
     }while(temp!=NULL);
-
 }
+
 int main()
 {
-     int ch,ele;
+    int ch,ele;
     do{
-        cout<<"enter 1 to enter element "<<endl;
-        cout<<"enter 2 to delete element at end"<<endl;
-        cout<<"enter 3 for display"<<endl;
+        cout<<"enter 1 for enter element in linked list "<<endl;
+        cout<<"enter 2 for deleting the node"<<endl;
+        cout<<"enter 3 for display "<<endl;
         cin>>ch;
         switch(ch)
         {
-        case 1:
-            cout<<"enter element in linked list"<<endl;
-            cin>>ele;
-            insert(ele);
-            break;
-        case 2:
-            dele();
-            break;
-        case 3:
-            display();
-            break;
+    case 1:
+        cout<<"enter elements in linked list "<<endl;
+        cin>>ele;
+        insert(ele);
+        break;
+    case 2:
+        del();
+        break;
+    case 3:
+        display();
+        break;
         }
     }while(ch<=3);
 }
